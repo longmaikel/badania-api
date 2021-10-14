@@ -15,6 +15,9 @@ class CreateTestCategoriesTable extends Migration
     {
         Schema::create('test_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 256)
+                ->charset('utf8mb4')
+                ->collation('utf8mb4_unicode_ci');
             $table->timestamps();
         });
     }

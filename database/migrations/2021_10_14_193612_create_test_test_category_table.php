@@ -14,8 +14,13 @@ class CreateTestTestCategoryTable extends Migration
     public function up()
     {
         Schema::create('test_test_category', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('test_id');
+            $table->unsignedBigInteger('test_category_id');
             $table->timestamps();
+
+            $table->foreignId('test_id')->constrained();
+            $table->foreignId('test_category_id')->constrained();
+            $table->unique(['test_id', 'test_category_id']);
         });
     }
 

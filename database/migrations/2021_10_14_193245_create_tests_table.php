@@ -15,6 +15,10 @@ class CreateTestsTable extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 1024)
+                ->charset('utf8mb4')
+                ->collation('utf8mb4_unicode_ci');
+            $table->string('price');
             $table->timestamps();
         });
     }
