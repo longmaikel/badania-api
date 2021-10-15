@@ -10,6 +10,8 @@ class TestCategory extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function tests(): BelongsToMany
     {
         return $this->belongsToMany(Test::class);

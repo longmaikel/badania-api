@@ -23,8 +23,8 @@ Route::delete('tests/{test}', [TestController::class, 'destroy']);
 
 Route::get('test-categories', [TestCategoryController::class, 'index']);
 Route::post('test-categories', [TestCategoryController::class, 'store']);
-Route::put('test-categories/{test_category}', [TestCategoryController::class, 'update']);
-Route::delete('test-categories/{test_category}', [TestCategoryController::class, 'destroy']);
+Route::put('test-categories/{testCategory}', [TestCategoryController::class, 'update']);
+Route::delete('test-categories/{test-category}', [TestCategoryController::class, 'destroy']);
 
 //
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
