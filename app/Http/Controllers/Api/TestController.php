@@ -28,4 +28,10 @@ class TestController extends Controller
         $test->update($request->all());
         return response()->json(compact('test'));
     }
+
+    public function destroy(Test $test): JsonResponse
+    {
+        $test->delete();
+        return response()->json(['msg' => 'deleted']);
+    }
 }
