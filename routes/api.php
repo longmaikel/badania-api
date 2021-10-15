@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('tests', [TestController::class, 'index']);
 Route::post('tests', [TestController::class, 'store']);
-Route::patch('tests/{test}', [TestController::class, 'update']);
+Route::put('tests/{test}', [TestController::class, 'update']);
 Route::delete('tests/{test}', [TestController::class, 'destroy']);
 
 Route::get('test-categories', [TestCategoryController::class, 'index']);
 Route::post('test-categories', [TestCategoryController::class, 'store']);
-Route::patch('test-categories/{test_category}', [TestCategoryController::class, 'update']);
+Route::put('test-categories/{test_category}', [TestCategoryController::class, 'update']);
 Route::delete('test-categories/{test_category}', [TestCategoryController::class, 'destroy']);
 
 //
