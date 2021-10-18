@@ -25,13 +25,19 @@ class TestController extends Controller
 
     public function update(UpdateTestRequest $request, Test $test): JsonResponse
     {
-        $test->update($request->all());
+        $success = $test->update($request->all());
+        if (!$success) {
+            return response()->json(['msg' => 'Cannot update test'], 422);
+        }
         return response()->json(compact('test'));
     }
 
     public function destroy(Test $test): JsonResponse
     {
-        $test->delete();
-        return response()->json(['msg' => 'deleted']);
+        $success = $test->delete();
+        if (!$success) {
+            return response()->json(['msg' => 'Cannot delete test'], 422);
+        }
+        return response()->json(['msg' => 'Deleted correctly.']);
     }
 }
