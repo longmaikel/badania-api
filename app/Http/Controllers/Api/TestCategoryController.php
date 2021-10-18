@@ -23,16 +23,15 @@ class TestCategoryController extends Controller
         return response()->json(compact('category'), 201);
     }
 
-    public function update(UpdateTestCategoryRequest $request, TestCategory $category): JsonResponse
+    public function update(UpdateTestCategoryRequest $request, TestCategory $testCategory): JsonResponse
     {
-        dd($category);
-        $category->update($request->all());
-        return response()->json(compact('category'));
+        $testCategory->update($request->all());
+        return response()->json(compact('testCategory'));
     }
 
-    public function destroy(TestCategory $category): JsonResponse
+    public function destroy(TestCategory $testCategory): JsonResponse
     {
-        $category->delete();
+        $testCategory->delete();
         return response()->json(['msg' => 'deleted']);
     }
 }
