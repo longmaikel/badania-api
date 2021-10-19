@@ -14,6 +14,7 @@ use App\Repository\TestRepository;
 use App\Service\AddTestService;
 use App\Service\UpdateTestService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class TestController extends Controller
 {
@@ -31,7 +32,7 @@ class TestController extends Controller
     public function store(StoreTestRequest $request, AddTestService $service): JsonResponse
     {
         $test = $service->add($request->all());
-        return response()->json(compact('test'), 201);
+        return response()->json(compact('test'), Response::HTTP_CREATED);
     }
 
     public function update(UpdateTestRequest $request, Test $test, UpdateTestService $service): JsonResponse
@@ -39,7 +40,7 @@ class TestController extends Controller
         $success = $service->update($test, $request->all());
 
         if (!$success) {
-            return response()->json(['msg' => 'Cannot update test'], 422);
+            return response()->json(['msg' => 'Cannot update test'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return response()->json(compact('test'));
@@ -50,7 +51,7 @@ class TestController extends Controller
         $success = $test->delete();
 
         if (!$success) {
-            return response()->json(['msg' => 'Cannot delete test'], 422);
+            return response()->json(['msg' => 'Cannot delete test'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return response()->json(['msg' => 'Deleted correctly.']);

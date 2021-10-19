@@ -11,6 +11,7 @@ use App\Repository\TestCategoryRepository;
 use App\Service\AddTestCategoryService;
 use App\Service\UpdateTestCategoryService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class TestCategoryController extends Controller
 {
@@ -23,7 +24,7 @@ class TestCategoryController extends Controller
     public function store(StoreTestCategoryRequest $request, AddTestCategoryService $service): JsonResponse
     {
         $category = $service->add($request->all());
-        return response()->json(compact('category'), 201);
+        return response()->json(compact('category'), Response::HTTP_CREATED);
     }
 
     public function update(
@@ -35,7 +36,10 @@ class TestCategoryController extends Controller
         $success = $service->update($testCategory, $request->all());
 
         if (!$success) {
-            return response()->json(['msg' => 'Cannot update test category'], 422);
+            return response()->json(
+                ['msg' => 'Cannot update test category'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
 
         return response()->json(compact('testCategory'));
@@ -46,7 +50,10 @@ class TestCategoryController extends Controller
         $success = $testCategory->delete();
 
         if (!$success) {
-            return response()->json(['msg' => 'Cannot delete test category'], 422);
+            return response()->json(
+                ['msg' => 'Cannot delete test category'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
 
         return response()->json(['msg' => 'Deleted correctly.']);
