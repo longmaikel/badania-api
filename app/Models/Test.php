@@ -14,7 +14,8 @@ class Test extends Model
 
     public function testCategories(): BelongsToMany
     {
-        return $this->belongsToMany(TestCategory::class);
+        return $this->belongsToMany(TestCategory::class)
+            ->withTimestamps();
     }
 
 }
