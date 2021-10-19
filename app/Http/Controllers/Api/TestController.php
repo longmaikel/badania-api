@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GetTestRequest;
 use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
-use App\Http\Resources\TestCategoryResource;
 use App\Http\Resources\TestResource;
 use App\Models\Test;
 use App\Repository\SearchCriteria\Filters\TestCategoriesFilter;
 use App\Repository\SearchCriteria\SearchCriteria;
 use App\Repository\TestRepository;
+use App\Service\AddTestService;
+use App\Service\UpdateTestService;
 use Illuminate\Http\JsonResponse;
 
 class TestController extends Controller
@@ -27,18 +28,20 @@ class TestController extends Controller
         return new TestResource($tests);
     }
 
-    public function store(StoreTestRequest $request): JsonResponse
+    public function store(StoreTestRequest $request, AddTestService $service): JsonResponse
     {
-        $test = Test::create($request->all());
+        $test = $service->add($request->all());
         return response()->json(compact('test'), 201);
     }
 
-    public function update(UpdateTestRequest $request, Test $test): JsonResponse
+    public function update(UpdateTestRequest $request, Test $test, UpdateTestService $service): JsonResponse
     {
-        $success = $test->update($request->all());
+        $success = $service->update($test, $request->all());
+
         if (!$success) {
             return response()->json(['msg' => 'Cannot update test'], 422);
         }
+
         return response()->json(compact('test'));
     }
 

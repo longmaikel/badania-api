@@ -27,18 +27,22 @@ class TestCategoryController extends Controller
     public function update(UpdateTestCategoryRequest $request, TestCategory $testCategory): JsonResponse
     {
         $success = $testCategory->update($request->all());
+
         if (!$success) {
             return response()->json(['msg' => 'Cannot update test category'], 422);
         }
+
         return response()->json(compact('testCategory'));
     }
 
     public function destroy(TestCategory $testCategory): JsonResponse
     {
         $success = $testCategory->delete();
+
         if (!$success) {
             return response()->json(['msg' => 'Cannot delete test category'], 422);
         }
+
         return response()->json(['msg' => 'Deleted correctly.']);
     }
 }
