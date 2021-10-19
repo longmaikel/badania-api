@@ -15,18 +15,6 @@ class TestRepository extends AbstractRepository
         parent::__construct($model);
     }
 
-    public function getAll(): Collection
-    {
-        return $this->model->all();
-    }
-
-    public function findByCriteria(SearchCriteria $criteria): Collection
-    {
-        $builder = $this->getBaseQueryBuilder();
-        return $this->applyCriteriaToQuery($builder, $criteria)
-            ->get();
-    }
-
     protected function getBaseQueryBuilder(): Builder
     {
         $builder = $this->model->query();

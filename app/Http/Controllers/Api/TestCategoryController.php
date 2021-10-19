@@ -3,21 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetTestRequest;
 use App\Http\Requests\StoreTestCategoryRequest;
 use App\Http\Requests\UpdateTestCategoryRequest;
 use App\Http\Resources\TestCategoryResource;
 use App\Models\TestCategory;
-use App\Repository\SearchCriteria\Filters\TestCategoriesFilter;
-use App\Repository\SearchCriteria\SearchCriteria;
-use App\Repository\TestRepository;
+use App\Repository\TestCategoryRepository;
 use Illuminate\Http\JsonResponse;
 
 class TestCategoryController extends Controller
 {
-    public function index(): TestCategoryResource
+    public function index(TestCategoryRepository $testCategoryRepository): TestCategoryResource
     {
-        $categories = TestCategory::all();
+        $categories = $testCategoryRepository->getAll();
         return new TestCategoryResource($categories);
     }
 
