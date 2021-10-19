@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
+
+class GetTestRequest extends FormRequest
+{
+
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'category' => 'string'
+        ];
+    }
+
+    public function getCategories(): array
+    {
+        $stringifyCategories = $this->category;
+
+        if (is_null($stringifyCategories)) {
+            return [];
+        }
+
+        return explode(',', $stringifyCategories);
+    }
+}
