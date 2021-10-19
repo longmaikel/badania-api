@@ -48,9 +48,11 @@ class TestController extends Controller
     public function destroy(Test $test): JsonResponse
     {
         $success = $test->delete();
+
         if (!$success) {
             return response()->json(['msg' => 'Cannot delete test'], 422);
         }
+
         return response()->json(['msg' => 'Deleted correctly.']);
     }
 }

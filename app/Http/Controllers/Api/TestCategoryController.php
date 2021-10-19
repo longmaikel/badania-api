@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateTestCategoryRequest;
 use App\Http\Resources\TestCategoryResource;
 use App\Models\TestCategory;
 use App\Repository\TestCategoryRepository;
+use App\Service\AddTestCategoryService;
+use App\Service\UpdateTestCategoryService;
 use Illuminate\Http\JsonResponse;
 
 class TestCategoryController extends Controller
@@ -18,15 +20,19 @@ class TestCategoryController extends Controller
         return new TestCategoryResource($categories);
     }
 
-    public function store(StoreTestCategoryRequest $request): JsonResponse
+    public function store(StoreTestCategoryRequest $request, AddTestCategoryService $service): JsonResponse
     {
-        $category = TestCategory::create($request->all());
+        $category = $service->add($request->all());
         return response()->json(compact('category'), 201);
     }
 
-    public function update(UpdateTestCategoryRequest $request, TestCategory $testCategory): JsonResponse
+    public function update(
+        UpdateTestCategoryRequest $request,
+        TestCategory $testCategory,
+        UpdateTestCategoryService $service
+    ): JsonResponse
     {
-        $success = $testCategory->update($request->all());
+        $success = $service->update($testCategory, $request->all());
 
         if (!$success) {
             return response()->json(['msg' => 'Cannot update test category'], 422);
