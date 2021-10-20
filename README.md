@@ -37,6 +37,10 @@ Serve the application
 php artisan serve
 ```
 ---
+# Run test
+```
+{project_dir}/vendor/bin/phpunit
+```
 #API DOCS
 
 ## GET
