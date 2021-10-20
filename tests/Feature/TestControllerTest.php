@@ -41,7 +41,6 @@ class TestControllerTest extends TestCase
     public function test_creating_test(): void
     {
         $data = ['name' => 'example test', 'price' => '230.99'];
-        $test = Test::create($data);
 
         $this->json('post', 'api/tests', $data)
             ->assertStatus(Response::HTTP_CREATED)
