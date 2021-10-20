@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\SearchCriteria;
 
 use App\Repository\SearchCriteria\Filters\Filter;

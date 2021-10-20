@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Models\TestCategory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class TestCategoryRepository extends AbstractRepository
 {

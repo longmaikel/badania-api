@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Models\Test;
-use App\Repository\SearchCriteria\SearchCriteria;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 class TestRepository extends AbstractRepository
 {
