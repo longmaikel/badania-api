@@ -42,9 +42,10 @@ php artisan serve
 ```
 {project_dir}/vendor/bin/phpunit
 ```
-#API DOCS
+---
+# API docs
 
-## GET
+## GET endpoints
 ### GET `api/tests`
 Params
 ```
