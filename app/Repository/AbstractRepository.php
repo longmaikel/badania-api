@@ -30,6 +30,8 @@ abstract class AbstractRepository implements Repository
             ->get();
     }
 
+    abstract protected function getBaseQueryBuilder(): Builder;
+
     protected function applyCriteriaToQuery(Builder $query, SearchCriteria $searchCriteria): Builder
     {
         foreach ($searchCriteria->getCriteria() as $filter) {
@@ -38,6 +40,4 @@ abstract class AbstractRepository implements Repository
 
         return $query;
     }
-
-    abstract protected function getBaseQueryBuilder(): Builder;
 }

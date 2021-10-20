@@ -31,7 +31,7 @@ class TestCategoryController extends Controller
 
     public function update(
         UpdateTestCategoryRequest $request,
-        TestCategory $testCategory,
+        TestCategory              $testCategory,
         UpdateTestCategoryService $service
     ): JsonResponse
     {

@@ -27,7 +27,7 @@ class TestController extends Controller
     ): TestResource
     {
 
-        if ($request->has('category')){
+        if ($request->has('category')) {
             $searchCriteria->add(new TestCategoriesFilter($request->getCategories()));
         }
 

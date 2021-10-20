@@ -19,7 +19,7 @@ class TestRepository extends AbstractRepository
     {
         $builder = $this->model->query();
         $builder->select('tests.*')
-            ->leftJoin('test_test_category','tests.id', '=', 'test_test_category.test_id')
+            ->leftJoin('test_test_category', 'tests.id', '=', 'test_test_category.test_id')
             ->groupBy('tests.id');
 
         return $builder;
