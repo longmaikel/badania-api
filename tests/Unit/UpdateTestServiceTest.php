@@ -5,19 +5,12 @@ namespace Tests\Unit;
 use App\Models\Test;
 use App\Service\UpdateTestService;
 use Mockery;
-use Mockery\Mock;
 use PHPUnit\Framework\TestCase;
 
 class UpdateTestServiceTest extends TestCase
 {
 
     private UpdateTestService $service;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->service = new UpdateTestService();
-    }
 
     public function test_successful_test_updating(): void
     {
@@ -43,6 +36,12 @@ class UpdateTestServiceTest extends TestCase
 
         $this->assertFalse($response);
 
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->service = new UpdateTestService();
     }
 
 }
