@@ -30,7 +30,7 @@ class TestControllerTest extends TestCase
     public function test_index_return_valid_json(): void
     {
         $this->json('get', 'api/tests')
-            ->assertStatus(Response::HTTP_OK)
+            ->assertOk()
             ->assertJsonStructure([
                 'data' => [
                     '*' => $this->singleTestModelFieldsStructure
@@ -43,7 +43,7 @@ class TestControllerTest extends TestCase
         $data = ['name' => 'example test', 'price' => '230.99'];
 
         $this->json('post', 'api/tests', $data)
-            ->assertStatus(Response::HTTP_CREATED)
+            ->assertCreated()
             ->assertJsonStructure(['test' => $this->singleTestModelFieldsStructure]);
         $this->assertDatabaseHas('tests', $data);
 
@@ -55,7 +55,7 @@ class TestControllerTest extends TestCase
     public function test_creating_test_with_no_each_required_params(array $data): void
     {
         $this->json('post', 'api/tests', $data)
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+            ->assertUnprocessable();
     }
 
     public function test_updating_test(): void
@@ -68,7 +68,7 @@ class TestControllerTest extends TestCase
         $url = sprintf('api/tests/%s', $test->id);
 
         $this->json('put', $url, $updateData)
-            ->assertStatus(Response::HTTP_OK)
+            ->assertOk()
             ->assertJsonStructure(['test' => $this->singleTestModelFieldsStructure]);
         $this->assertDatabaseHas('tests', array_merge(['id' => $test->id], $updateData));
 
@@ -83,8 +83,22 @@ class TestControllerTest extends TestCase
         $url = sprintf('api/tests/%s', $test->id);
 
         $this->json('put', $url, $incompleteData)
-            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+            ->assertUnprocessable();
 
+    }
+
+    public function test_deleting_test(): void
+    {
+        $data = ['name' => 'example test', 'price' => '230.99'];
+        $test = Test::create($data);
+
+        $url = sprintf('api/tests/%s', $test->id);
+
+        $expectedDecodedJson = ["msg" => "Deleted correctly."];
+
+        $this->json('delete', $url)
+            ->assertJson($expectedDecodedJson)
+            ->assertOk();
     }
 
     public function incompleteParamsCreateUpdateTestRequestDataProvider(): array
