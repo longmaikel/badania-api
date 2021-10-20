@@ -45,12 +45,12 @@ class TestControllerTest extends TestCase
         $this->json('post', 'api/tests', $data)
             ->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure(['test' => $this->singleTestModelFieldsStructure]);
-        $this->assertDatabaseHas('tests',$data);
+        $this->assertDatabaseHas('tests', $data);
 
     }
 
     /**
-     * @dataProvider incompleteParamsCreateTestRequestDataProvider
+     * @dataProvider incompleteParamsCreateUpdateTestRequestDataProvider
      */
     public function test_creating_test_with_no_each_required_params(array $data): void
     {
@@ -58,7 +58,36 @@ class TestControllerTest extends TestCase
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function incompleteParamsCreateTestRequestDataProvider(): array
+    public function test_updating_test(): void
+    {
+        $data = ['name' => 'example test', 'price' => '230.99'];
+        $test = Test::create($data);
+
+        $updateData = ['name' => 'example test edit', 'price' => '255.99'];
+
+        $url = sprintf('api/tests/%s', $test->id);
+
+        $this->json('put', $url, $updateData)
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonStructure(['test' => $this->singleTestModelFieldsStructure]);
+        $this->assertDatabaseHas('tests', array_merge(['id' => $test->id], $updateData));
+
+    }
+
+    /**
+     * @dataProvider incompleteParamsCreateUpdateTestRequestDataProvider
+     */
+    public function test_updating_test_with_no_each_required_params(array $incompleteData): void
+    {
+        $test = Test::create(['name' => 'update test', 'price' => '255.99']);
+        $url = sprintf('api/tests/%s', $test->id);
+
+        $this->json('put', $url, $incompleteData)
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+    }
+
+    public function incompleteParamsCreateUpdateTestRequestDataProvider(): array
     {
         return [
             [['name' => 'example test']],
