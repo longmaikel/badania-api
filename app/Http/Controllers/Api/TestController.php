@@ -24,7 +24,11 @@ class TestController extends Controller
         SearchCriteria $searchCriteria
     ): TestResource
     {
-        $searchCriteria->add(new TestCategoriesFilter($request->getCategories()));
+
+        if ($request->has('category')){
+            $searchCriteria->add(new TestCategoriesFilter($request->getCategories()));
+        }
+
         $tests = $testRepository->findByCriteria($searchCriteria);
         return new TestResource($tests);
     }

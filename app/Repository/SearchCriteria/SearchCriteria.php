@@ -9,6 +9,11 @@ class SearchCriteria
 
     private array $criteria;
 
+    public function __construct()
+    {
+        $this->criteria = [];
+    }
+
     /**
      * @return array|Filter[]
      */
