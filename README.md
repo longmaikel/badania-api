@@ -63,7 +63,7 @@ api/tests?category=1,2,3
 Body
 ```
 {
-    "name":string
+    "name":"string"
     "price":float 
 }
 ```
@@ -71,7 +71,7 @@ Body
 Body
 ```
 {
-    "name":string
+    "name":"string"
 }
 ```
 
@@ -80,7 +80,7 @@ Body
 Body
 ```
 {
-    "name":string
+    "name":"string"
     "price":float 
 }
 ```
@@ -88,7 +88,7 @@ Body
 Body
 ```
 {
-    "name":string
+    "name":"string"
 }
 ```
 
