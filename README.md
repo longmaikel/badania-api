@@ -15,6 +15,7 @@ Install packages via Composer
 ```
 composer install
 ```
+Copy `.env.example` to `.env` file if does not exists\
 Setup database connection in `.env` file
 ```
 DB_CONNECTION=
